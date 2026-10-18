@@ -6,6 +6,12 @@ from falkordb import FalkorDB
 
 load_dotenv()
 
+def config_value(key, default=None):
+    try:
+        return st.secrets[key]
+    except (KeyError, FileNotFoundError):
+        return os.getenv(key, default)
+
 st.set_page_config(
     page_title="KEYSTONE | Company Brain",
     page_icon="🔎",
@@ -22,16 +28,15 @@ st.caption(
 @st.cache_resource
 def get_graph():
     db = FalkorDB(
-        host=os.environ["FALKORDB_HOST"],
-        port=int(os.getenv("FALKORDB_PORT", "57993")),
-        username=os.environ["FALKORDB_USERNAME"],
-        password=os.environ["FALKORDB_PASSWORD"],
+        host=config_value("FALKORDB_HOST"),
+        port=int(config_value("FALKORDB_PORT", "57993")),
+        username=config_value("FALKORDB_USERNAME"),
+        password=config_value("FALKORDB_PASSWORD"),
         ssl=False,
         socket_connect_timeout=5,
         socket_timeout=10,
     )
-    return db.select_graph(os.getenv("FALKORDB_GRAPH", "keystone"))
-
+    return db.select_graph(config_value("FALKORDB_GRAPH", "keystone"))
 try:
     graph = get_graph()
     graph.query("RETURN 1 AS ready")
