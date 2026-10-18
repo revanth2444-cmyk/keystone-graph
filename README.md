@@ -172,7 +172,7 @@ The application requires FalkorDB connection settings for the host, port, userna
 
 ## 11. AI Assistance
 
-Disclose AI coding or writing assistance used in developing the project, as required by the hackathon rules. The project authors are responsible for testing the code and understanding how the system works.
+AI tools were used to assist with aspects of coding, debugging, documentation, and demo narration. The project was developed and reviewed iteratively, with the author responsible for verifying the implementation and understanding the graph model, Cypher queries, architecture, and technical decisions. 
 
 ## 12. License
 
